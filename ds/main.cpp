@@ -18,6 +18,27 @@ void buildTree(int* arr,int* tree,int start,int end,int treeNode){
     tree[treeNode] = tree[2*treeNode]+tree[2*treeNode+1];
 
 }
+//function to find sum query
+int query(int* tree,int node, int low, int high, int l, int r)
+{
+    if(r < low || high < l)
+    {
+        // range represented by a node is completely outside the given range
+        return 0;
+    }
+    if(l == low && high == r)
+    {
+        // range represented by a node is completely inside the given range
+        return tree[node];
+    }
+    // range represented by a node is partially inside and partially outside the given range
+    int mid = (low + high) / 2;
+    int p1 = query(tree,2*node, low, mid, l, r);
+    int p2 = query(tree,2*node+1, mid+1, high, l, r);
+    return (p1 + p2);
+}
+
+
 int main() {
     int n;
     cin>>n;
@@ -28,9 +49,15 @@ int main() {
 	int size = size_of_segment_tree(n);
 	int* tree = new int[size];
 	buildTree(arr,tree,0,n-1,1);
-	for(int i=1;i<size;i++){
+
+	//Query
+	int qlow,qhigh;
+	cin>>qlow>>qhigh;
+	int q_ans = query(tree,1,0,n-1,qlow,qhigh);
+	cout<<q_ans;
+	/*for(int i=1;i<size;i++){
 	    cout<<tree[i]<<endl;
-	}
+	}*/
 	return 0;
 }
 
