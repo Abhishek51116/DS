@@ -5,7 +5,7 @@ int size_of_segment_tree(int n){
     while(n>x){
         x*=2;
     }
-    return (2*x-1);
+    return (2*x);
 }
 void buildTree(int* arr,int* tree,int start,int end,int treeNode){
 
@@ -17,6 +17,22 @@ void buildTree(int* arr,int* tree,int start,int end,int treeNode){
     buildTree(arr,tree,start,mid,2*treeNode);
     buildTree(arr,tree,mid+1,end,2*treeNode+1);
     tree[treeNode] = tree[2*treeNode]+tree[2*treeNode+1];
+
+}
+//update a given index
+void update(int* tree,int node,int upi,int up,int low,int high){
+
+if(low==high){
+    tree[node] = up;
+    return;
+}
+int mid = (low+high)/2;
+if(upi<=mid)
+    update(tree,2*node,upi,up,low,mid);
+if(upi>mid)
+   update(tree,2*node+1,upi,up,mid+1,high);
+ tree[node] = tree[2*node]+tree[2*node+1];
+ return;
 
 }
 //function to find sum query
@@ -59,7 +75,13 @@ int main() {
 	int qlow,qhigh;
 	cin>>qlow>>qhigh;
 	int q_ans = query(tree,1,0,n-1,qlow,qhigh);
-	cout<<"Query "<<q_ans;
+	cout<<"Query "<<q_ans,,endl;;
+
+    int up,upi;//update Number and update index
+    cin>>upi>>up;
+    update(tree,1,upi,up,0,n-1);
+
+
 
 	return 0;
 }
