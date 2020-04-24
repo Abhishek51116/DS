@@ -75,7 +75,7 @@ int main() {
 	int qlow,qhigh;
 	cin>>qlow>>qhigh;
 	int q_ans = query(tree,1,0,n-1,qlow,qhigh);
-	cout<<"Query "<<q_ans,,endl;;
+	cout<<"Query "<<q_ans<<endl;;
 
     int up,upi;//update Number and update index
     cin>>upi>>up;
