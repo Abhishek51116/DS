@@ -3,7 +3,7 @@
 using namespace std;
 int size_of_segment_tree(int n){
     int  p = pow(2,ceil(log(n)/log(2)));
-    return p;
+    return 2*p;
 }
 void buildTree(int* arr,int* tree,int start,int end,int treeNode){
 
