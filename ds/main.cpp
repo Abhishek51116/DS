@@ -1,11 +1,9 @@
 #include <iostream>
+#include <math.h>
 using namespace std;
 int size_of_segment_tree(int n){
-    int x=1;
-    while(n>x){
-        x*=2;
-    }
-    return (2*x);
+    int  p = pow(2,ceil(log(n)/log(2)));
+    return p;
 }
 void buildTree(int* arr,int* tree,int start,int end,int treeNode){
 
