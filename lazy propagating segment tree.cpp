@@ -18,12 +18,45 @@ void buildTree(int* arr,int* tree,int start,int end,int treeNode){
 
 }
 
+int query(int* tree,int*lazy,int node, int low, int high, int l, int r)
+{
+    if (lazy[node] != 0)
+    {
+        tree[node] += (high - low +1)*lazy[node];
 
+        if (low != high)
+        {
+
+            lazy[node*2]   += lazy[node];
+            lazy[node*2 + 1]   += lazy[node];
+        }
+
+        lazy[node] = 0;
+    }
+
+    if(l == low && high == r)
+    {
+                return tree[node];
+    }
+
+    int mid = (low + high) / 2;
+
+    if(r<=mid)  query(tree,lazy,2*node,low,mid,l,r);
+
+    else if(l>mid)  query(tree,lazy,2*node+1,mid+1,high,l,r);
+else{
+    int p1 = query(tree,lazy,2*node, low, mid, l, mid);
+
+    int p2 = query(tree,lazy,2*node+1, mid+1, high, mid+1, r);
+
+    return (p1 + p2);
+    }
+}
 
 void update(int* tree,int* lazy,int node,int low,int high,int l,int r ,int val){
 if (lazy[node] != 0)
     {
-        tree[node] += (low-high+1)*lazy[node];
+        tree[node] += (high-low+1)*lazy[node];
 
         if (low != high)
         {
@@ -90,7 +123,8 @@ int main() {
 	    cout<<"tree: "<<tree[i]<<" lazy: "<<lazy[i]<<endl;
 	}
 	cout<<endl;
-	/*int suml,sumh;
-	query(tree,lazy,1, 0, n-1, suml, sumh);*/
+	int suml,sumh;
+	cin<<suml<<sumh;
+	query(tree,lazy,1, 0, n-1, suml, sumh);
 	return 0;
 }
