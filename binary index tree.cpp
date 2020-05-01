@@ -1,6 +1,19 @@
 #include <iostream>
 
 using namespace std;
+
+int getSum(int Bit[], int index)
+{
+    int sum = 0;
+    index = index + 1;
+    while (index>0)
+    {
+        sum += Bit[index];
+        index -= index & (-index);
+    }
+    return sum;
+}
+
 void update(int val,int* Bit,int size,int index){
     index = index+1;
     while(index <=size){
@@ -31,6 +44,9 @@ int main()
         cin>>arr[i];
     }
     int* Bit = constBit(arr,size);
-
+    int queryI;
+    cin>>queryI;
+    int query=getSum(Bit,queryI);
+    cout<<query<<endl;
     return 0;
 }
