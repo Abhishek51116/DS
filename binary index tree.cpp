@@ -8,7 +8,7 @@ void update(int val,int* Bit,int size,int index){
         index += index & (-index);
     }
 }
-void constBit(int *arr,int size){
+int* constBit(int *arr,int size){
 int *Bit = new int[size+1];
 for(int i=0;i<size+1;i++){
     Bit[i] = 0;
@@ -20,6 +20,7 @@ for(int i=0;i<size;i++){
     for(int i=1;i<size+1;i++){
         cout<<Bit[i]<<" ";
     }
+    return Bit;
 }
 int main()
 {
@@ -29,7 +30,7 @@ int main()
     for(int i=0;i<size;i++){
         cin>>arr[i];
     }
-    constBit(arr,size);
+    int* Bit = constBit(arr,size);
 
     return 0;
 }
